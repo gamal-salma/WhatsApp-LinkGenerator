@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — WhatsApp Link Generator</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Admin Dashboard</h1>
+    <p class="subtitle">Analytics, logs, and IP management</p>
+    <a href="/" class="nav-link">Back to Generator</a>
+  </div>
+
+  <!-- Login Section -->
+  <div id="login-section">
+    <div class="card login-card">
+      <h2 style="margin-bottom:1rem;text-align:center">Admin Login</h2>
+      <div id="login-error" class="alert alert-error hidden"></div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard Section -->
+  <div id="dashboard-section" class="hidden">
+    <div class="admin-container">
+      <div style="text-align:right;margin-bottom:1rem">
+        <button id="logout-btn" class="btn btn-secondary btn-sm">Logout</button>
+      </div>
+
+      <!-- Analytics -->
+      <h2 class="section-title">Analytics</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="number" id="stat-total">—</div>
+          <div class="label">Total Requests</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="stat-today">—</div>
+          <div class="label">Today</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="stat-week">—</div>
+          <div class="label">This Week</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="stat-blocked">—</div>
+          <div class="label">Blocked IPs</div>
+        </div>
+      </div>
+
+      <!-- Logs -->
+      <h2 class="section-title">Request Logs</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Phone</th>
+              <th>Message</th>
+              <th>IP</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="logs-body">
+            <tr><td colspan="5" style="text-align:center">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+      <div style="margin-bottom:1.5rem">
+        <button id="purge-btn" class="btn btn-danger btn-sm">Purge Records Older Than 30 Days</button>
+      </div>
+
+      <!-- IP Management -->
+      <h2 class="section-title">IP Management</h2>
+      <div class="ip-form">
+        <input type="text" id="block-ip-input" placeholder="Enter IP address">
+        <input type="text" id="block-reason-input" placeholder="Reason (optional)">
+        <button id="block-ip-btn" class="btn btn-danger btn-sm">Block</button>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>IP Address</th>
+              <th>Reason</th>
+              <th>Blocked At</th>
+              <th>Expires</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="blocked-ips-body">
+            <tr><td colspan="5" style="text-align:center">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>
