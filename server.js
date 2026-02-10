@@ -8,6 +8,9 @@ function seedAdmin() {
   const username = config.adminUsername;
   const password = config.adminPassword;
 
+  console.log(`Seeding admin: username="${username}", password length=${password ? password.length : 0}`);
+
+  // Always update the password hash to match current env var
   const existing = db.get('SELECT id FROM admin_users WHERE username = ?', [username]);
   if (!existing) {
     const hash = bcrypt.hashSync(password, 12);
@@ -15,7 +18,11 @@ function seedAdmin() {
     db.save();
     console.log(`Admin user "${username}" created.`);
   } else {
-    console.log(`Admin user "${username}" already exists, skipping.`);
+    // Update password hash in case ADMIN_PASSWORD env var changed
+    const hash = bcrypt.hashSync(password, 12);
+    db.run('UPDATE admin_users SET password_hash = ? WHERE username = ?', [hash, username]);
+    db.save();
+    console.log(`Admin user "${username}" password updated.`);
   }
 }
 
