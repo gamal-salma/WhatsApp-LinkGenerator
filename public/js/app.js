@@ -10,8 +10,12 @@
   const qrCode = document.getElementById('qr-code');
   const copyBtn = document.getElementById('copy-btn');
   const errorAlert = document.getElementById('error-alert');
+  const consentModal = document.getElementById('consent-modal');
+  const consentAccept = document.getElementById('consent-accept');
+  const consentCancel = document.getElementById('consent-cancel');
 
   let csrfToken = '';
+  let consentResolve = null;
 
   // Fetch CSRF token on load
   async function fetchCsrfToken() {
@@ -44,6 +48,24 @@
     errorAlert.classList.add('hidden');
   }
 
+  // Consent modal logic
+  function showConsentModal() {
+    return new Promise((resolve) => {
+      consentResolve = resolve;
+      consentModal.classList.remove('hidden');
+    });
+  }
+
+  consentAccept.addEventListener('click', () => {
+    consentModal.classList.add('hidden');
+    if (consentResolve) consentResolve(true);
+  });
+
+  consentCancel.addEventListener('click', () => {
+    consentModal.classList.add('hidden');
+    if (consentResolve) consentResolve(false);
+  });
+
   // Form submit
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -56,6 +78,10 @@
       showError('Please enter a phone number.');
       return;
     }
+
+    // Show consent modal and wait for user response
+    const accepted = await showConsentModal();
+    if (!accepted) return;
 
     generateBtn.disabled = true;
     generateBtn.innerHTML = '<span class="spinner"></span> Generating...';

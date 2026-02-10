@@ -44,6 +44,21 @@
     </div>
   </div>
 
+  <!-- Consent Modal -->
+  <div id="consent-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <h3 style="margin-bottom:0.75rem">Privacy Notice</h3>
+      <p style="font-size:0.95rem;line-height:1.5;color:#374151">
+        This app securely logs your IP, phone number, and timestamp for auditing.
+        Data is encrypted and deleted after 30 days. Click <strong>Accept</strong> to continue.
+      </p>
+      <div class="modal-actions">
+        <button id="consent-cancel" class="btn btn-secondary">Cancel</button>
+        <button id="consent-accept" class="btn btn-primary" style="width:auto">Accept</button>
+      </div>
+    </div>
+  </div>
+
   <script src="/js/app.js"></script>
 </body>
 </html>
